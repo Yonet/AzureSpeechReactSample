@@ -30,65 +30,22 @@ export default class App extends Component {
 
   async componentDidMount() {
     // check for valid speech key/region
-    const tokenRes = await getTokenOrRefresh();
-    if (tokenRes.authToken === null) {
-      this.setState({
-        displayText: "FATAL_ERROR: " + tokenRes.error,
-      });
-    }
+    // const tokenRes = await getTokenOrRefresh();
+    // if (tokenRes.authToken === null) {
+    //   this.setState({
+    //     displayText: "FATAL_ERROR: " + tokenRes.error,
+    //   });
+    // }
   }
 
   async sttFromMic() {
-    this.setState({
-      displayText: "speak into your microphone...",
-    });
-
-    const tokenObj = await getTokenOrRefresh();
-    const speechConfig =
-      speechsdk.SpeechTranslationConfig.fromAuthorizationToken(
-        tokenObj.authToken,
-        tokenObj.region
-      );
-    speechConfig.speechRecognitionLanguage = "en-US";
-    options.forEach((option) => {
-      speechConfig.addTargetLanguage(option.value);
-    });
-
-    const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
-    const recognizer = new speechsdk.TranslationRecognizer(
-      speechConfig,
-      audioConfig
-    );
-
-    recognizer.recognizing = (s, e) => {
-      console.log("recognizing ", e);
-      let result = "";
-      if (e.result.reason == ResultReason.RecognizedSpeech) {
-        result = `TRANSLATED: Text=${e.result.text}`;
-      } else if (e.result.reason == ResultReason.NoMatch) {
-        result = "NOMATCH: Speech could not be translated.";
-      }
-      console.log(result);
-      this.setState({
-        tr: e.result.translations.get("tr"),
-        es: e.result.translations.get("es"),
-        it: e.result.translations.get("tlh-Latn"),
-        displayText: e.result.text,
-      });
-    };
-
-    recognizer.recognized = (s, e) => {
-      console.log("recognized ", e);
-      this.setState({
-        displayText: `RECOGNIZED: ${e.result.text}`,
-        tr: e.result.translations.get("tr"),
-        es: e.result.translations.get("es"),
-        it: e.result.translations.get("tlh-Latn"),
-      });
-    };
-
-    recognizer.startContinuousRecognitionAsync();
-
+    //Display message to user
+    //Get token
+    //Speech Config
+    //Set Language
+    //Audio Config
+    //Start Recognizer
+    //Start continuous recognition
     // recognizer.recognizeOnceAsync((result) => {
     //   if (
     //     result.reason === ResultReason.RecognizedSpeech ||
