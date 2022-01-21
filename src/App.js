@@ -7,6 +7,7 @@ import "./custom.css";
 import { ResultReason } from "microsoft-cognitiveservices-speech-sdk";
 
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
+
 const options = [
   { value: "tr", label: "Turkish", translation: "Türkçe:" },
   { value: "es", label: "Spanish", translation: "Español:" },
@@ -62,9 +63,7 @@ export default class App extends Component {
     recognizer.recognizing = (s, e) => {
       console.log("recognizing ", e);
       let result = "";
-      if (
-        e.result.reason == ResultReason.RecognizedSpeech
-) {
+      if (e.result.reason == ResultReason.RecognizedSpeech) {
         result = `TRANSLATED: Text=${e.result.text}`;
       } else if (e.result.reason == ResultReason.NoMatch) {
         result = "NOMATCH: Speech could not be translated.";
